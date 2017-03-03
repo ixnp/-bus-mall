@@ -30,6 +30,7 @@ var tracker = {
   imgObjOne: null,
   imgObjTwo: null,
   imgObjThree: null,
+  clicks: 0,
 
 
 
@@ -53,14 +54,24 @@ getRandomIndex:function(){
   this.imageTwoEl.src = this.imgObjTwo.path;
   this.imageThreeEl.src = this.imgObjThree.path;
 //29:00//
-  }
-};
+  },
 
-tracker.imageContainerEl.addEventListener('click',function(e){
-  if(e.target){
-    
-  }
-});
+ checkClicks: function(){
+  if(this.clicks > 15){
+    this.imageContainer.removeEventListener('click',this.clickHandler);
+      }
+  },
+  clickHandler: function(e){
+    if(e.target.id === 'imageOne' || e.target.id === 'imageTwo' || e.target.id === 'imageThree'){
+      tracker.clicks++;
+      tracker.displayImages();
+ }
+}
+};
+tracker.imageContainerEl.addEventListener('click', tracker.clickHandler);
+
+
+tracker.displayImages();
 // var tracker = {
 //
 // };
