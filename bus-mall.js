@@ -27,11 +27,12 @@ var tracker = {
   imageTwoEl: document.getElementById('imageTwo'),
   imageThreeEl: document.getElementById('imageThree'),
   imageContainerEl: document.getElementById('imageContainer'),
+  resultsEl: document.getElementById('results'),
+  showResultsEl: document.getElementById('show-results'),
   imgObjOne: null,
   imgObjTwo: null,
   imgObjThree: null,
   clicks: 0,
-
 
 
 getRandomIndex:function(){
@@ -51,112 +52,58 @@ getRandomIndex:function(){
   }
 
   this.imageOneEl.src = this.imgObjOne.path;
+  this.imageOneEl.id = this.imgObjOne.name;
   this.imageTwoEl.src = this.imgObjTwo.path;
+  this.imageTwoEl.id = this.imgObjTwo.name;
   this.imageThreeEl.src = this.imgObjThree.path;
+  this.imageThreeEl.id = this.imgObjThree.name;
 //29:00//
   },
 
  checkClicks: function(){
-  if(this.clicks > 15){
-    this.imageContainer.removeEventListener('click',this.clickHandler);
-      }
+   console.log(this.clicks);
+  if(this.clicks > 14){
+
+    this.imageContainerEl.removeEventListener('click',this.clickHandler);
+    this.showResultsEl.addEventListener('click', function(e){
+      e.preventDefault();
+      tracker.renderResults();
+    });
+    }
   },
   clickHandler: function(e){
-    if(e.target.id === 'imageOne' || e.target.id === 'imageTwo' || e.target.id === 'imageThree'){
+    tracker.checkClicks();
+    if(
+      e.target.id === tracker.imgObjOne.name ||
+      e.target.id === tracker.imgObjTwo.name ||
+      e.target.id === tracker.imgObjThree.name) {
       tracker.clicks++;
+      tracker.tallyVotes(e.target.id);
       tracker.displayImages();
+    }
+ },
+
+ tallyVotes: function(elId){
+   for(var i = 0; i< productArr.length; i++){
+     if(elId === productArr[i].name){
+       productArr[i].votes += 1;
+       console.log(productArr[i]);
+      break;
+     }
+   }
+ },
+ renderResults: function(){
+   var ulEl = document.createElement('ul');
+
+   for(var i in productArr){
+     var liEl = document.createElement('li');
+     liEl.textContent = productArr[i].name + ':' + productArr[i].votes;
+     ulEl.appendChild(liEl);
+   }
+   this.resultsEl.appendChild(ulEl);
  }
-}
 };
 tracker.imageContainerEl.addEventListener('click', tracker.clickHandler);
 
 
 tracker.displayImages();
-// var tracker = {
-//
-// };
-//
-// someEl.addEventListener('click', functions(e)){
-//
-// })
-
-
-// var imgArray = new Array();
-//
-// imagesArray[0] = new Image();
-// imageArray[0].src =  'bag';
-//
-// ////////////
-//
-// function nextImage(element)
-// {
-//   var img = document.getElementsById(element);
-//
-//   for( var i = 0; i< imageArray.length;i++)
-//   if(imageArray[i].src == img.src)
-//   {
-//     if(i === imageArray.length{
-//       document.getElementById(element).src = imageArray[0].src;
-//       break;
-//     }
-//     document.getElementById(element).src = imgArray[i+1].src;
-//     break;
-//   }
-// }
-//
-
-// function displayImage(){
-//   var number = Math.floor(Math.random()*(imagesArray.legth + 1));
-//   var document.getElementById("imageOne") = images[number]
-// }
-//
-//
-//
-
-// document.getElemntbyID("randomOne").addEventListener("clcik", function(event){
-//   event.target.innHtml="click count:" + event.detail;
-//
-// }
-//
-// var randomImage = getElementsById('myimage')[0];
-// for(i=0; i< 3; i++){
-//
-// var item = (Math.floor(Math.random()*myImage.length), 1)[0];
-//
-// var image = document.createElement('img');
-// image.src= item.image;
-//
-// list.appendChild(image);
-// //
-//
-// var myImage = ["bag.jpg", "banana.jpg", "bathroom.jpg","boots.jpg","breakfast.jpg","bubblegum.jpg","chair.jpg","cthulu.jpg","dog-duck.jpg","dragon.jpg","pen.jpg","pet-sweep.jpg","scissors.jpg","shark.jpg","sweep.jpg","tauntaun.jpg","unicorn.jpg","usb.jpg","water-can.jpg", "wine-glass.jpg"];
-//
-//
-// }
-
-
-// function choose (){
-//   var rand = Math.floor(Math.random()* images.length);
-//
-// document.getElemntbyID("myimage").src= images[rand];
-// }
-// var lastIndex = 0;
-//
-// function randomImage() {
-//    var theImage = document.getElementById('myimage');
-//    var imgDir = 'images/bus-mall
-//    ';
-//    var imgArray = new array('bag.jpg', 'banana.jpg', 'bathroom.jpg','boots.jpg','breakfast.jpg','bubblegum.jpg','chair.jpg','cthulu.jpg','dog-duck.jpg','dragon.jpg','pen.jpg','pet-sweep.jpg','scissors.jpg','shark.jpg','sweep.jpg','tauntaun.jpg','unicorn.jpg','usb.jpg','water-can.jpg', 'wine-glass.jpg');
-//    var imgIndex = 0;
-//
-//
-//    if(imgArray.length > 1) {
-//    while(imgIndex == lastIndex) {
-//       imgIndex = Math.floor(Math.random() * imgArray.length);
-//    }
-//    lastIndex = imgIndex;
-//
-//    var imgPath = imgDir + imgArray[imgIndex];
-//
-// theImage.src = imgPath;
-// theImage.alt = imgArray[imgIndex];
