@@ -93,6 +93,12 @@ var tracker = {
       }
     },
     renderResults: function(){
+      var votesPerImage = []
+
+      for(var i=0;i< productArr.length; i++){
+        votesPerImage.push(productArr[i].votes)
+
+      }
       var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
           type: 'bar',
@@ -100,7 +106,8 @@ var tracker = {
               labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'],//names of images//
               datasets: [{
                   label: '# of Votes',
-                  data: productArr[i].votes, //this will hold the votes//
+                  data: votesPerImage,//this will hold the votes/
+
                   backgroundColor: [
                       'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
