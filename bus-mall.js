@@ -13,7 +13,7 @@ function Product(name) {
   this.path = 'image/' + name + '.jpg';
   productArr.push(this);
 }
-console.log(this.path);
+
 // a simple IIFE to build all the product images // Producing path to new product
 (function () {
   for (var i = 0; i < productNames.length; i++) {
